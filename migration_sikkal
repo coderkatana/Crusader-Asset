@@ -1,0 +1,11 @@
+find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
+find . -path "*/migrations/*.pyc"  -delete
+
+
+
+Check You Django version and then Force Reinstall it
+
+python -m django --version
+pip install --upgrade --force-reinstall package
+
+  pip install --upgrade --force-reinstall  Django==3.0.5

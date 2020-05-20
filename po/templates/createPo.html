@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Create New Purchase Order</div>
+
+                <div class="card-body">
+                    <form action="/po" method="post">
+{% csrf_token %}
+
+                        <div class="form-group">
+                        Product Name:    <input aria-describedby="questionHelp" class="form-control"
+                                   id="product" name="productName" placeholder="Enter Product Name"
+                                   type="text">
+                        </div>
+
+
+                        <div>
+                            <div class="form-group">
+                            Model No :    <input aria-describedby="answer2Help" class="form-control" id="answer2"
+                                       name="answers[][answer]" placeholder="Enter Model No" type="text"
+                                       value="">
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="form-group">
+                            Count :    <input aria-describedby="answer1Help" class="form-control" id="answer1"
+                                       name="answers[][answer]" placeholder="Enter Number of Items" type="text"
+                                       value="">
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="form-group">
+                               Price : <input aria-describedby="answer2Help" class="form-control" id="answer3"
+                                       name="answers[][answer]" placeholder="Enter Price" type="text"
+                                       value="">
+
+                            </div>
+                        </div>
+
+
+                        <div>
+                            <div class="form-group">
+                             Delivery Address :   <input aria-describedby="answer2Help" class="form-control" id="answer4"
+                                       name="answers[][answer]" placeholder="Enter Delivery Address" type="text"
+                                       value="">
+
+                            </div>
+                        </div>
+
+
+                <button class="btn btn-primary" type="submit">Add PO</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{#{% load crispy_forms_tags %}#}
+{#{% load crispy_forms_field %}#}
+
+
+
+
+{% block content %}
+    <h2 class="mt-4 mb-4 font-weight-bold text-primary">Add New Asset</h2>
+    <div class="container border bg-dark">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row mt-3">
+
+                <div class="form-group text-white disabled col-md-6 ">
+                    {% if not ura.id %}
+                        <label for="product_name"><strong>Product Title</strong></label>
+                        <input type="text" class="form-control text-center" value="{{ ura.product_name }}" id="product_name"
+                               name='product_name'
+                               placeholder="Product Title">
+                    {% endif %}
+                    {% if ura.id %}
+                        <label for="product_name"><strong>Product Title</strong></label>
+                        <input type="text" class="form-control text-center" value="{{ ura.product_name }}" id="product_name"
+                               name='product_name'
+                               placeholder="Product Title" readonly>
+                    {% endif %}
+                </div>
+
+                <div class="form-group text-white col-md-3">
+{#                    {% if not ura.id %}#}
+{#                        <label for="vendor_name"><strong>PO number</strong></label>#}
+{#                        <input type="text" class="form-control" value="{{ ura.po.po_number }}" id="po_number"#}
+{#                               name='po_number'#}
+{#                               placeholder="Po No">#}
+{#                    {% endif %}#}
+                    {% if ura.id %}
+                        <label for="vendor_name"><strong>PO number</strong></label>
+                        <input type="text" class="form-control text-center" value="{{ ura.po.po_number }}" id="po_number"
+                               name='po_number'
+                               placeholder="Po No" readonly>
+                    {% endif %}
+
+                </div>
+
+                <div class="form-group text-white col-md-3">
+                    <label for="invoice_number"><strong>Invoice number</strong></label>
+                    <input type="int" class="form-control text-center" id="invoice_number" name="invoice_number"
+                           placeholder="Invoice No">
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group text-white col-md-3">
+                    <label for="serial_no"><strong>Serial Number</strong></label>
+                    <input type="text" class="form-control text-center" id="branch_assigned" name='serial_no'
+                           placeholder="Serial No">
+                </div>
+
+                <div class="form-group text-white col-md-3">
+                    {% if not ura.id %}
+                        <label for="branch_assigned"><strong>Branch Assigned</strong></label>
+                        <select name="branch_dropdown" class="form-control">
+                            {% for branch in branches %}
+                                <option class="dropdown-item text-center" value="{{ branch.pk }}">{{ branch.Name }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                    {% if ura.id %}
+                        <label for="branch_assigned"><strong>Branch Assigned</strong></label>
+                        <input type="text" class="form-control text-center" value="{{ ura.branch.Name }}" id="branch_assigned"
+                               name='branch_assigned'
+                               placeholder="Branch Assigned" readonly>
+                    {% endif %}
+                </div>
+
+                <div class="form-group text-white col-md-3">
+                    {% if not ura.id %}
+                        <label for="product_type"><strong>Product Type</strong></label>
+                        <select name="product_dropdown" class="form-control ">
+                            {% for type in product_types %}
+                                <option class="dropdown-item text-center" value="{{ type.title }}">{{ type.title }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                    {% if ura.id %}
+                        <label for="Product Type"><strong>Product Type</strong></label>
+                        <input type="text" class="form-control text-center" value="{{ ura.product_type.title }}" id="product_type"
+                               name='product_type' placeholder="Product Type" readonly>
+                    {% endif %}
+                </div>
+                <div class="form-group text-white col-md-3">
+                    {% if not ura.id %}
+                        <label for="vendor_dropdown"><strong>Vendor Name</strong></label>
+                        <select name="vendor_dropdown" class="form-control">
+                            {% for vendor in vendors %}
+                                <option class="dropdown-item text-center" value="{{ vendor.name }}">{{ vendor.Name }}</option>
+                            {% endfor %}
+                        </select>
+                    {% endif %}
+                    {% if ura.id %}
+                        <label for="vendor_name"><strong>Vendor Name</strong></label>
+                        <input type="text" class="form-control text-center" value="{{ ura.vendor_name }}" id="vendor_name"
+                               name='vendor_name'
+                               placeholder="Vendor Name" readonly>
+                    {% endif %}
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group text-white col-md-3">
+                    <label for="procurement_date"><strong>Procurement Date</strong></label>
+                    <input type="date" class="form-control text-center" id="procurement_date"
+                           name="procurement_date">
+                </div>
+                <div class="form-group text-white col-md-3">
+                    <label for="warranty_expiration"><strong>Warranty Expiration</strong></label>
+                    <input type="date" class="form-control text-center" id="warranty_expiration"
+                           name="warranty_expiration">
+                </div>
+                <div class="col-md-3 text-white">
+                    <label for="notes"><strong>Notes</strong></label>
+                    <input type="text" class="form-control text-center" id="notes" placeholder="Notes" name="notes">
+                </div>
+            </div>
+            <input type="submit" value="Save" class=" mb-3 btn btn-primary"/>
+        </form>
+    </div>
+{% endblock %}

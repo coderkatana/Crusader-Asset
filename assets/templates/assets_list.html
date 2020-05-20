@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="row">
+        <div><h2 class="mt-4 mb-4 font-weight-bold text-primary">Asset Report</h2></div>
+        <div class="col-sm-5 form-group text-right col-md-4 mt-4">
+            <a type="button" class="btn btn-sm btn-outline-info btn-lg"
+               href="{% url "assets:asset_export"  %}">Export</a>
+        </div>
+    </div>
+
+    <form method="get">
+        <div class="well">
+            <div class="row">
+                <div class="form-group col-sm-4 col-md-3">
+                    <strong>{{ filter.form.product_type.label_tag }}</strong>
+                    {% render_field filter.form.product_type class="form-control" %}<br>
+                    <div class="ml-3">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
+                <div class="form-group col-sm-4 col-md-3 row">
+                    <strong>{{ filter.form.branch__Name.label_tag }}</strong>
+                    {% render_field filter.form.branch__Name class="form-control" %}<br>
+                    <div class="form-group text-center col-sm-2 col-md-4 mt-4">
+                        <label for="invoice_number"><strong>Results:</strong></label>
+                    </div>
+                    <div class="form-group col-md-4 mt-4"><input type="int" class="form-control"
+                                                                 id="invoice_number" name="invoice_number"
+                                                                 placeholder="Count" value="{{ result_count }}"
+                                                                 readonly>
+                    </div>
+                </div>
+                <div class="form-group col-sm-2 col-md-3">
+                    <strong>{{ filter.form.status.label_tag }}</strong>
+                    {% render_field filter.form.status class="form-control" %}
+                </div>
+                <div class="form-group col-sm-2 col-md-3">
+                    <strong>{{ filter.form.procurement_date.label_tag }}</strong>
+                    {% render_field filter.form.procurement_date class="form-control" %}
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="table table-hover table-bordered table-dark">
+        <thead>
+        <tr>
+            <th class='bg-primary text-center text-white' scope="col">Sno.</th>
+            <th class='bg-primary text-center text-white' scope="col">Product</th>
+            <th class='bg-primary text-center text-white' scope="col">Product Type</th>
+            <th class='bg-primary text-center text-white' scope="col">Branch</th>
+            <th class='bg-primary text-center text-white' scope="col">PO Number</th>
+            <th class='bg-primary text-center text-white' scope="col">Status</th>
+            <th class='bg-primary text-center text-white' scope="col">Warranty</th>
+            <th class='bg-primary text-center text-white' scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form>
+        </form>
+        {% for asset in filter.qs %}
+            <tr>
+                <th class="text-center" scope="row">{{ forloop.counter }}</th>
+                <td><a scope="row"
+                       href={% url 'assets:asset_detail_view' asset.id %}>{{ asset.product_name }}</a></td>
+                <td>{{ asset.product_type }}</td>
+                <td>{{ asset.branch }}</td>
+                <td class="text-center "><a scope="row"
+                        {% if asset.po.id %}
+                                            href={% url 'po:detail' asset.po.id %}>{{ asset.po.po_number }}</a>
+                        {% endif %}
+                    {% if not asset.po.id %}
+                        <p class="text-warning">Manual Purchase</p>
+                    {% endif %}</td>
+                {% if asset.status == "Active" %}
+                    <td class="text-center">
+                        <div class="badge badge-success">{{ asset.status }}</div>
+                    </td>
+                {% endif %}
+                {% if asset.status == "Scrapped" %}
+                    <td class="text-center">
+                        <div class="badge badge-secondary">{{ asset.status }}</div>
+                    </td>
+                {% endif %}
+                {% if asset.status == "Fixing" %}
+                    <td class="text-center">
+                        <div class="badge badge-warning ">{{ asset.status }}</div>
+                    </td>
+                {% endif %}
+
+                <td class="text-center ">{{ asset.warranty_status }}</td>
+                <td class="text-center"><a type="button" class="btn btn-sm btn-outline-info btn-lg"
+                                           href="{% url "assets:asset_update_view" asset.id %}">Update</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&laquo;</span></li>
+            {% endif %}
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disabled"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+
+{% endblock %}

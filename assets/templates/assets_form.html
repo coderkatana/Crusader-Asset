@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{#{% load crispy_forms_tags %}#}
+{#{% load crispy_forms_field %}#}
+
+
+
+
+{% block content %}
+    <h1 class="mt-4 mb-4 font-weight-bold">Update Asset Details</h1>
+    <div class="container border">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row mt-3">
+                <div class="form-group disabled col-md-6 ">
+                    <label for="product_name"><strong>Product Title</strong></label>
+                    <input type="text" class="form-control text-center" value="{{ asset.product_name }}" id="product_name"
+                           name='product_name'
+                           placeholder="Product Title" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="vendor_name"><strong>PO number</strong></label>
+                    <input type="text" class="form-control text-center" id="po_number"
+                           name='po_number' value="{{ asset.po.po_number }}"
+                           placeholder="Po No" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="invoice_number"><strong>Invoice number</strong></label>
+                    <input type="int" class="form-control text-center" id="invoice_number" name="invoice_number"
+                           placeholder="Invoice No" value="{{ asset.invoice_number }}" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="serial_no"><strong>Serial Number</strong></label>
+                    <input type="text" class="form-control text-center" id="branch_assigned" name='serial_no'
+                           value="{{ asset.serial_no }}"
+                           placeholder="Serial No" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="branch_dropdown"><strong>Branch Assigned</strong></label>
+                    <select name="branch_dropdown" class="form-control text-center">
+                        {% for branch in branches %}
+                            {% if branch.id == asset.branch_id %}
+                                <option class="dropdown-item text-center" value="{{ branch.id }}"
+                                        selected>{{ branch.Name }}</option>
+                            {% endif %}
+                            {% if branch.id != asset.branch_id %}
+                                <option class="dropdown-item text-center" value="{{ branch.id }}">{{ branch.Name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="Product Type"><strong>Product Type</strong></label>
+                    <input type="text" class="form-control text-center" value="{{ asset.product_type }}" id="product_type"
+                           name='product_type' placeholder="Product Type" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="vendor_name"><strong>Vendor Name</strong></label>
+                    <input type="text" class="form-control text-center" value="{{ asset.vendor_name }}" id="vendor_name"
+                           name='vendor_name'
+                           placeholder="Vendor Name" readonly>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="procurement_date"><strong>Procurement Date</strong></label>
+                    <input type="" class="form-control text-center" id="procurement_date"
+                           name="procurement_date" value="{{ asset.procurement_date }}" readonly>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="warranty_expiration"><strong>Warranty Expiration</strong></label>
+                    <input type="" class="form-control text-center" id="warranty_expiration"
+                           name="warranty_expiration" value="{{ asset.warranty_expiration }}" readonly>
+                </div>
+                <div class=" col-md-3">
+                    <label for="notes"><strong>Notes</strong></label>
+                    <input type="text" class="form-control text-center" id="notes" placeholder="Notes" name="notes"
+                           value="{{ asset.notes }}">
+                </div>
+                <div class=" col-md-3">
+                    <label for=status"><strong>Status</strong></label>
+                    <select value="{{ asset.status }}" name="status" class="form-control text-center">
+                        {% if asset.status == "Active" %}
+                            <option class="dropdown-item" value="ACTIVE" selected>ACTIVE</option>
+                            <option value="FIXING">FIXING</option>
+                            <option value="SCRAPPED">SCRAPPED</option>
+                        {% endif %}
+                        {% if asset.status == "Fixing" %}
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option class="dropdown-item" value="FIXING" selected>FIXING</option>
+                            <option value="SCRAPPED">SCRAPPED</option>
+                        {% endif %}
+                        {% if asset.status == "Scrapped" %}
+                            <option value="ACTIVE">ACTIVE</option>
+                            <option value="FIXING">FIXING</option>
+                            <option class="dropdown-item" value="SCRAPPED" selected>SCRAPPED</option>
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            <input type="submit" value="Save" class=" mb-3 btn btn-primary"/>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1 class="mt-4"><strong>DASHBOARD</strong></h1>
+
+    <div class="row">
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Total Assets</h5>
+                    <p class="card-text font-weight-bold"><h4> {{ assetCount }}</h4></p>
+                    <a href="{% url 'assets:asset_list' %}" class="btn btn-primary">View Assets</a>
+                    <div class="icon col-sm-5 mt-5 mr-3">
+                        <img src="/media/images/ASSETS.png"
+                             width="95px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mt-4">
+
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">UnRealized Assets</h5>
+                    <p class="card-text font-weight-bold"><h4> {{ uraCount }}</h4></p>
+                    <a href="{% url 'assets:ur_asset_list' %}" class="btn btn-primary stretched-link">UR Assets</a>
+                    <div class="icon col-sm-5 mt-5 ">
+                        <img src="/media/images/data-pending-1-564533.png"
+                             width="65px">
+                    </div>
+                </div>
+            </div>
+        </div>
+          <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Purchase Orders</h5>
+                    <p class="card-text font-weight-bold"><h4>{{ poCount }}</h4></p>
+                    <a href="{% url 'po:index' %}" class="btn btn-primary">View Pos</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/po/sage-fas-illustration-reporting.png" width="60px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Processed POs</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ processed_pos_count }}</h4></p>
+                    <a href="http://127.0.0.1:8000/po/?processed=true" class="btn btn-primary">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/po/report-icon.png" width="60px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">UnProcessed POs</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ un_processed_pos_count }}</h4></p>
+                    <a href="http://127.0.0.1:8000/po/?processed=false" class="btn btn-primary">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/images/invoice-icon-54.png" width="60px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Laptops</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ laptop_count }}</h4></p>
+                    <a href="http://127.0.0.1:8000/assets/list/?product_type=laptop" class="btn btn-primary">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/assets/lapf.png" width="60px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Printers</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ printer_count }}</h4></p>
+                    <a href="http://127.0.0.1:8000/assets/list/?product_type=printer"
+                       class="btn btn-primary stretched-link">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/assets/9images.png" width="65px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Jio-Fi</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ jiofi_count }}0</h4></p>
+                    <a href="http://127.0.0.1:8000/assets/list/?product_type=printer"
+                       class="btn btn-primary stretched-link">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/assets/30a69aefecb699371487f80a5365d90a_icon.png" width="70px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Monitors</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ monitor_count }}0</h4></p>
+                    <a href="http://127.0.0.1:8000/assets/list/?product_type=printer"
+                       class="btn btn-primary stretched-link">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/assets/imges%20.png" width="55px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-3 mt-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Routers</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ router_count }}0</h4></p>
+                    <a href="http://127.0.0.1:8000/assets/list/?product_type=printer"
+                       class="btn btn-primary stretched-link">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/ICON/assets/277965.png" width="55px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="col-sm-3 mt-4 mb-4">
+            <div class="card text-white bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold">Ext HDD</h5>
+                    <p class="card-text float-right font-weight-bold"><h4>{{ ehdd_count }}0</h4></p>
+                    <a href="http://127.0.0.1:8000/assets/list/?product_type=printer"
+                       class="btn btn-primary stretched-link">View</a>
+                    <div class="icon col-sm-5 mt-5 ml-2">
+                        <img src="/media/Screenshot%20at%202020-04-16%2010-26-43.png" width="63px">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

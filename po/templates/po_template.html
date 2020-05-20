@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        img {
+            width: 30%;
+            height: 50%;
+            object-fit: contain;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Order</title>
+</head>
+<body>
+</body>
+</html>
+<div class="container border">
+    <p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSqlEJ99Hmx2BvYFRIp3Fqk3lsjR0kxU8l7E3PmcqF8z5h3I9s9" class="rounded float-right img mr-4 mt-5" alt="DNC CHITS Pvt. Ltd.">
+    </p>
+    <div class="row  mt-4">
+        <div class="col-sm-6">
+            <div class="card border-primary mt-5">
+                <div class="card-body">
+                    <h5 class="card-title text-warning"><strong>DNC Chits Pvt. Ltd,</strong></h5>
+                  <p class="card-text">No. 49/14 <br> North Boag Road, <br> B, Narasimman Road, <br> T. Nagar, Chennai -
+                        600017.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card border-primary mr-3 ml-5 mt-5">
+                <div class="card-body">
+                    <h5 class="card-title text-warning"><strong>Purchase Order</strong></h5>
+                    <p class="card-text">PO No : {{po.po_number}} <br>Date : {{ po.created_at }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row mt-5">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-white bg-primary mb-3"><strong>Vendor Details</strong></div>
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ po.vendor.Name }},</h5>
+                  <p class="card-text">{{ po.vendor.door_no }}, <br> {{ po.vendor.street_address }}, <br> {{ po.vendor.road_address }}, <br> {{ po.vendor.apartment_address }}
+                        - {{ po.vendor.zip }}.</p>
+                    <p class="card-text">Phone : {{po.vendor.phone}} <br> Email: {{ po.vendor.email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-header text-white bg-primary mb-3"><strong>Delivery Address</strong></div>
+                <div class="card-body">
+                    <h5 class="card-title">DNC Chits Pvt. Ltd,</h5>
+                  <p class="card-text">{{ po.branch.door_no }}, <br> {{ po.branch.street_address }}, <br> {{ po.branch.road_address }},<br> {{ po.branch.apartment_address }}
+                        - {{ po.branch.zip }}.</p>
+                    <p class="card-text">Phone : {{ po.branch.phone }} <br> Email: {{ po.branch.email }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <table class="table table-bordered mt-4">
+        <thead>
+        <tr>
+            <th class="bg-primary mb-3 text-center" scope="col">PO No</th>
+            <th class="bg-primary mb-3 text-center" scope="col">Requested By</th>
+            <th class="bg-primary mb-3 text-center" scope="col">Approved By</th>
+            <th class="bg-primary mb-3 text-center" scope="col">Department</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-center">{{ po.po_number }}</td>
+            <td class="text-center">{{ po.passer }}</td>
+            <td class="text-center">{{ po.approved_by }}</td>
+            <td class="text-center">{{ po.department }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+    <br>
+    <table class="table table-centered table-striped table-bordered mt-4 mb-4">
+       <tbody>
+        <tr>
+            <td class="text-center bg-primary"><strong>Sno</strong></td>
+            <td class="text-center bg-primary"><strong>Product</strong></td>
+            <td class="text-center bg-primary"><strong>Quantity</strong></td>
+            <td class="text-center bg-primary"><strong>Unit Price</strong></td>
+            <td class="text-center bg-primary"><strong>Total</strong></td>
+        </tr>
+
+
+        {% for item in po.po_item.all %}
+            <tr>
+                <td class="text-center">{{ forloop.counter }}</td>
+                <td class="text-center">{{ item.product.title }}</td>
+                <td class="text-center">{{ item.quantity }}</td>
+                <td class="text-right">₹ {{ item.price }}</td>
+                <td class="text-right">₹ {{ item.get_total_price }}</td>
+            </tr>
+        {% endfor %}
+        <td colspan="3"></td>
+        <th  class="text-center">Total</th>
+        <td class="text-right">₹ {{ po.total_cost }}</td>
+        </tbody>
+
+    </table>
+    <div class="card float-right mt-5 mr-3 mb-5" style="width: 14rem;">
+        <div class="card-header bg-primary text-white text-center">
+            <strong>Authorised Signatory</strong>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item text-center">{{po.approved_by}}</li>
+        </ul>
+    </div>
+</div>
+
+
+

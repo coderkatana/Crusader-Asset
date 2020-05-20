@@ -1,0 +1,23 @@
+.card:hover {
+    text-decoration: none;
+    color: #000;
+}
+.card:hover .icon {
+    font-size: 35px;
+}
+
+.card .icon {
+  transition: all 0.3s linear;
+  position: absolute;
+  top: 0px;
+  right: -10px;
+  z-index: 0;
+  font-size: 55px;
+  color: rgba(0, 0, 0, 0.15);
+}
+
+
+
+/*       .card{*/
+/*  position: relative;*/
+/*}*/
