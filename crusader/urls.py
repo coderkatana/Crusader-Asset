@@ -30,8 +30,6 @@ path('', views.index),
     path('po/', include('po.urls')),
     path('products/', include('products.urls')),
     path('assets/', include('assets.urls')),
-    path('nms/', include('nms.urls')),
-
 ]
 
 urlpatterns += staticfiles_urlpatterns()
